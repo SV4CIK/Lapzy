@@ -1,0 +1,43 @@
+LAPZY — STRÁNKA KE STAŽENÍ A VERZE PRO IPHONE
+==============================================
+
+Co je v téhle složce
+--------------------
+index.html    stránka, na kterou lidi přijdou
+zasady.html   zásady ochrany osobních údajů (odkaz z patičky)
+app/          celá aplikace pro prohlížeč — tohle si iPhone přidá na plochu
+icon.png      ikona stránky
+og.png        náhled při sdílení odkazu
+README.md     podrobný postup
+.nojekyll     prázdný, ale nutný — bez něj GitHub Pages aplikaci nespustí
+
+Vyvěšení na GitHub Pages (zdarma), krok za krokem
+-------------------------------------------------
+1. Na github.com si založ účet, pokud ho nemáš.
+2. Vpravo nahoře + → New repository. Jméno: lapzy. Zaškrtni Public. Create.
+3. Na stránce repozitáře klikni „uploading an existing file" a přetáhni do
+   okna CELÝ OBSAH téhle složky — i složku app/ a skrytý soubor .nojekyll
+   (ve Windows ho ukážeš přes Zobrazení → Skryté položky, na Macu
+   klávesami Cmd+Shift+tečka). Bez .nojekyll se aplikace neotevře.
+   Dole Commit changes.
+4. Settings → Pages → Source: Deploy from a branch, větev main, složka
+   / (root). Save.
+5. Za pár minut stránka běží na https://TVOJE-JMENO.github.io/lapzy/
+
+Co ještě doplnit
+----------------
+* V index.html nahraď na dvou místech UZIVATEL svým jménem na GitHubu
+  (jsou to odkazy na stažení APK pro Android).
+* V zasady.html doplň DOPLŇ JMÉNO a DOPLŇ E-MAIL.
+* APK pro Android nahraj do Releases pod názvem lapzy.apk — odkaz na
+  stránce pak míří vždycky na nejnovější vydání.
+
+Jak si to dát na iPhone
+-----------------------
+1. V Safari otevři adresu stránky a klepni na Otevřít Lapzy.
+2. Dole ikona Sdílet (čtvereček se šipkou nahoru).
+3. Sjeď na Přidat na plochu a potvrď.
+4. Na ploše přibude ikona. Spouští se na celou obrazovku a po prvním
+   otevření funguje i bez signálu.
+
+Musí to být Safari — Chrome ani Firefox přidání na plochu na iPhonu neumí.

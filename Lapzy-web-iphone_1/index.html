@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lapzy — offline časomíra ke stažení</title>
+<meta name="description" content="Offline časomíra pro rychlostní zkoušky. Měří na setiny i bez signálu. Zdarma pro Android i iPhone.">
+<meta name="theme-color" content="#f0f2f5">
+<link rel="icon" href="icon.png">
+<meta property="og:title" content="Lapzy — offline časomíra">
+<meta property="og:description" content="Měří rychlostní zkoušky na setiny. Bez internetu, bez účtu, bez reklam.">
+<meta property="og:image" content="og.png">
+<meta property="og:type" content="website">
+
+<!-- ═══ CO UPRAVIT PŘED VYVĚŠENÍM ═══════════════════════════
+     1) UZIVATEL  → tvoje jméno na GitHubu (na dvou místech níž)
+     2) v souboru zasady.html doplň své jméno a e-mail
+     3) verzi a datum dole ve VERZE
+     Víc je v souboru web/README.md.
+     ═══════════════════════════════════════════════════════ -->
+
+<style>
+  :root {
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --group: #e9ecef;
+    --ink: #212529;
+    --text: #495057;
+    --muted: #868e96;
+    --line: #dde1e6;
+    --edge: #ced4da;
+    --accent: #2f9e44;
+    --blue: #1c7ed6;
+    --f: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --card: #161b22; --group: #1c2128; --ink: #f0f3f6;
+      --text: #c9d1d9; --muted: #8b949e; --line: #272d35; --edge: #010409;
+      --accent: #3fb950; --blue: #58a6ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--f); -webkit-font-smoothing: antialiased;
+    font-size: 16px; line-height: 1.6;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 64px; }
+
+  /* ── hlavička ───────────────────────────────────────── */
+  .hero { text-align: center; margin-bottom: 40px; }
+  .appicon {
+    width: 104px; height: 104px; border-radius: 24px; background: #fff;
+    margin: 0 auto 20px; box-shadow: 0 6px 22px rgba(0,0,0,.13); display: block;
+  }
+  .appicon svg { width: 100%; height: 100%; display: block; }
+  h1 {
+    font-size: 40px; font-weight: 900; letter-spacing: -.04em;
+    color: var(--ink); margin: 0 0 8px;
+  }
+  .tagline { font-size: 17px; color: var(--muted); margin: 0; text-wrap: balance; }
+
+  /* ── stahování ──────────────────────────────────────── */
+  .downloads { display: grid; gap: 14px; }
+  .dl {
+    background: var(--card); border-radius: 22px; border-bottom: 3px solid var(--edge);
+    padding: 24px 24px 26px;
+  }
+  .dl h2 {
+    margin: 0 0 4px; font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .dl .plat {
+    font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); background: var(--group); padding: 3px 8px; border-radius: 6px;
+  }
+  .dl p { margin: 0 0 16px; font-size: 14.5px; color: var(--muted); }
+  .dl p:last-child { margin-bottom: 0; }
+
+  .btn {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--accent); color: #fff;
+    font-size: 17px; font-weight: 800; letter-spacing: -.01em;
+    padding: 17px 20px; border-radius: 16px;
+    border-bottom: 4px solid rgba(0,0,0,.2);
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .btn:active { transform: translateY(1px); }
+  .btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+  .btn .small { display: block; font-size: 12.5px; font-weight: 600; opacity: .8; margin-top: 3px; }
+
+  .btn.ghost {
+    background: var(--group); color: var(--ink); border-bottom-color: var(--edge);
+  }
+
+  details {
+    margin-top: 16px; background: var(--group); border-radius: 14px; padding: 2px 16px;
+  }
+  details summary {
+    cursor: pointer; padding: 12px 0; font-size: 14px; font-weight: 700; color: var(--ink);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▸ "; color: var(--muted); }
+  details[open] summary::before { content: "▾ "; }
+  details ol, details ul { margin: 0 0 14px; padding-left: 20px; font-size: 14px; color: var(--muted); }
+  details li { margin-bottom: 5px; }
+  details li b { color: var(--text); }
+
+  /* ── vlastnosti ─────────────────────────────────────── */
+  h3 {
+    font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); margin: 44px 0 14px;
+  }
+  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .feat {
+    background: var(--card); border-radius: 16px; border-bottom: 3px solid var(--edge);
+    padding: 16px 18px 18px;
+  }
+  .feat b { display: block; color: var(--ink); font-size: 15px; font-weight: 800; letter-spacing: -.015em; margin-bottom: 3px; }
+  .feat span { font-size: 13.5px; color: var(--muted); }
+
+  /* ── patička ────────────────────────────────────────── */
+  footer {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+    font-size: 13.5px; color: var(--muted); text-align: center;
+  }
+  footer a { color: var(--accent); }
+  footer p { margin: 0 0 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="appicon">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Lapzy">
+        <!-- posun o 0,44 / 1,90 srovnává značku na oko, viz tools/make_icons.mjs -->
+        <g transform="translate(-0.44 -1.90)">
+          <g transform="translate(50 50) scale(0.88) translate(-50 -50)">
+            <rect x="41" y="12" width="18" height="12" rx="6" fill="#2f9e44"/>
+            <circle cx="50" cy="55" r="27" fill="none" stroke="#212529" stroke-width="13"/>
+            <path d="M50 55L63 43" fill="none" stroke="#212529" stroke-width="10" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <h1>Lapzy</h1>
+    <p class="tagline">Časomíra pro rychlostní zkoušky. Měří na setiny — bez signálu, bez účtu, bez reklam.</p>
+  </div>
+
+  <div class="downloads">
+
+    <!-- ══ ANDROID ══════════════════════════════════════ -->
+    <div class="dl">
+      <h2>Android <span class="plat">apk</span></h2>
+      <p>Telefon nebo tablet s Androidem 7 a novějším.</p>
+
+      <a class="btn" href="https://github.com/UZIVATEL/lapzy/releases/latest/download/lapzy.apk">
+        Stáhnout Lapzy
+        <span class="small">APK · vždy nejnovější verze</span>
+      </a>
+
+      <details>
+        <summary>Android hlásí „neznámý zdroj". Co s tím?</summary>
+        <ol>
+          <li>Klepni na <b>Stáhnout Lapzy</b>. Prohlížeč se zeptá, jestli soubor opravdu chceš — potvrď.</li>
+          <li>Otevři stažený soubor. Android oznámí, že z tohoto zdroje instalovat nelze.</li>
+          <li>Klepni na <b>Nastavení</b> v té hlášce a povol <b>Instalace neznámých aplikací</b> prohlížeči, ze kterého jsi stahoval.</li>
+          <li>Vrať se zpět a dej <b>Instalovat</b>.</li>
+        </ol>
+        <p style="font-size:13.5px;color:var(--muted);margin:0 0 14px">
+          Je to varování, ne chyba: Android takhle hlásí každou aplikaci, která nejde z Obchodu Play.
+          Povolení se vztahuje jen na ten jeden prohlížeč a dá se hned zase vypnout.
+        </p>
+      </details>
+
+      <p style="margin-top:14px;font-size:13.5px">
+        Nechceš nic instalovat? <a href="app/" style="color:var(--blue)">Otevři Lapzy rovnou v prohlížeči</a> —
+        v Chromu se dá přes nabídku <b>Přidat na plochu</b> taky uložit mezi aplikace.
+      </p>
+    </div>
+
+    <!-- ══ IPHONE ═══════════════════════════════════════ -->
+    <div class="dl">
+      <h2>iPhone <span class="plat">na plochu</span></h2>
+      <p>
+        Apple instalaci staženého souboru nedovolí. Lapzy proto na iPhonu běží jako stránka,
+        kterou si přidáš na plochu — pak se chová jako aplikace a funguje i bez signálu.
+      </p>
+
+      <a class="btn ghost" href="app/">
+        Otevřít Lapzy
+        <span class="small">Potom Sdílet → Přidat na plochu</span>
+      </a>
+
+      <details>
+        <summary>Jak ji dostat na plochu</summary>
+        <ol>
+          <li>Otevři <b>Otevřít Lapzy</b> — musí to být v <b>Safari</b>, jiné prohlížeče to na iPhonu neumí.</li>
+          <li>Dole klepni na ikonu <b>Sdílet</b> (čtvereček se šipkou nahoru).</li>
+          <li>Sjeď dolů na <b>Přidat na plochu</b> a potvrď.</li>
+          <li>Na ploše přibude ikona Lapzy. Spouští se na celou obrazovku a data zůstávají v telefonu.</li>
+        </ol>
+        <p style="font-size:13.5px;color:var(--muted);margin:0 0 14px">
+          Po prvním otevření se aplikace uloží do telefonu, takže na trati funguje i bez signálu.
+          Měřené časy se ukládají průběžně a přežijí zavření i vypnutí telefonu.
+        </p>
+      </details>
+
+      <details>
+        <summary>Proč to nejde stáhnout jako na Androidu?</summary>
+        <p style="font-size:14px;color:var(--muted);margin:0 0 14px">
+          iPhone v Evropské unii instalaci mimo App Store umí — jenže povolení je na straně vývojáře,
+          ne telefonu. Apple k němu vyžaduje placené členství a k tomu jednu z podmínek jako
+          bankovní záruku na milion dolarů, audit účetnictví nebo milion stažení za minulý rok.
+          Pro aplikaci, kterou dělá jeden člověk, to reálné není. Stránka na ploše umí to samé
+          a je zdarma.
+        </p>
+      </details>
+    </div>
+  </div>
+
+  <h3>Co to umí</h3>
+  <div class="feats">
+    <div class="feat"><b>Start a cíl</b><span>Velké tlačítko přes celou šířku, časy na setiny. Trefíš ho i v rukavici.</span></div>
+    <div class="feat"><b>Rychlostní zkoušky</b><span>Vyber zkoušku a jezdce, aplikace sama posouvá na dalšího.</span></div>
+    <div class="feat"><b>Dva telefony</b><span>Na startu jeden, v cíli druhý. Časy přeneseš QR kódem nebo souborem.</span></div>
+    <div class="feat"><b>Výsledky</b><span>Tabulka s časy po zkouškách, součtem a ztrátou. Export do Excelu, CSV i TXT.</span></div>
+    <div class="feat"><b>Bikrosový start</b><span>Odpočet s pípáním, když se startuje na světla.</span></div>
+    <div class="feat"><b>Nic neodesílá</b><span>Aplikace nemá přístup k internetu. Všechno zůstává v telefonu.</span></div>
+  </div>
+
+  <footer>
+    <p><b>VERZE</b> 1.0.0 · vydáno 15. 9. 2026</p>
+    <p>
+      <a href="zasady.html">Zásady soukromí</a> ·
+      <a href="https://github.com/UZIVATEL/lapzy/releases">Starší verze</a>
+    </p>
+    <p style="margin-top:14px">Lapzy je zdarma a bez reklam.</p>
+  </footer>
+</div>
+</body>
+</html>

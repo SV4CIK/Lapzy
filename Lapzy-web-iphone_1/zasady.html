@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lapzy — zásady ochrany osobních údajů</title>
+<style>
+  :root {
+    --bg: #f0f2f5; --card: #ffffff; --text: #212529; --muted: #5b646d;
+    --line: #dde1e6; --accent: #2f9e44;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d1117; --card: #161b22; --text: #d5dbe2; --muted: #8b949e; --line: #272d35; --accent: #3fb950; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.62 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 72px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 34px; }
+  .mark { width: 58px; height: 58px; border-radius: 14px; background: #fff; flex: none; border: 1px solid var(--line); }
+  .mark svg { width: 100%; height: 100%; display: block; }
+  h1 { font-size: 27px; line-height: 1.15; margin: 0; letter-spacing: -.02em; }
+  .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  h2 { font-size: 19px; margin: 34px 0 10px; letter-spacing: -.01em; }
+  p, li { color: var(--text); }
+  .lead { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-size: 13px; font-weight: 700; }
+  code { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-size: 14px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
+  a { color: var(--accent); }
+  .en { color: var(--muted); }
+  .en h2, .en h1 { color: var(--text); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50 50) scale(0.88) translate(-50 -50)">
+          <rect x="41" y="12" width="18" height="12" rx="6" fill="#2f9e44"/>
+          <circle cx="50" cy="55" r="27" fill="none" stroke="#212529" stroke-width="13"/>
+          <path d="M50 55L63 43" fill="none" stroke="#212529" stroke-width="10" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <h1>Zásady ochrany osobních údajů</h1>
+      <div class="sub">Lapzy · platné od 15. 9. 2026</div>
+    </div>
+  </header>
+
+  <p class="lead">
+    Lapzy je offline časomíra. <strong>Nesbírá, neposílá ani nesdílí žádné osobní údaje.</strong>
+    Všechno, co v aplikaci vznikne, zůstává v paměti telefonu, dokud to sám nesmažeš nebo
+    aplikaci neodinstaluješ.
+  </p>
+
+  <h2>Jaká data aplikace zpracovává</h2>
+  <p>V telefonu se ukládají výhradně údaje, které do aplikace sám zadáš nebo naměříš:</p>
+  <ul>
+    <li>nastavení závodu — název, počet rychlostních zkoušek, počet jezdců, bonusy,</li>
+    <li>jména jezdců a názvy rychlostních zkoušek, pokud je vyplníš,</li>
+    <li>naměřené časy startu a cíle,</li>
+    <li>jazyk, tmavý režim a jméno telefonu použité při sdílení dat.</li>
+  </ul>
+  <p>
+    Jméno telefonu se přebírá z nastavení zařízení a slouží jen k tomu, aby bylo v cizím telefonu
+    poznat, odkud nahraná data přišla. Pokud ho zařízení neposkytne, aplikace si vytvoří náhodné
+    označení, například <code>Lapzy A3F7</code>.
+  </p>
+  <p>
+    Data se ukládají do běžného úložiště aplikace. Aplikace <strong>nemá přístup k internetu</strong>
+    a žádná data nikam neodesílá — ani vývojáři, ani třetím stranám. Neobsahuje reklamy, analytiku
+    ani sledovací nástroje.
+  </p>
+
+  <h2>Oprávnění a k čemu slouží</h2>
+  <table>
+    <tr><th>Oprávnění</th><th>K čemu</th></tr>
+    <tr><td>Fotoaparát</td><td>Načtení QR kódu s časy z jiného telefonu. Snímek se nikam neukládá ani neodesílá.</td></tr>
+    <tr><td>Fotky a média</td><td>Načtení QR kódu z už pořízeného snímku a uložení vygenerovaného QR kódu do galerie.</td></tr>
+    <tr><td>Soubory</td><td>Uložení exportu do složky, kterou sám vybereš, a načtení souboru s časy.</td></tr>
+  </table>
+  <p>
+    Každé oprávnění se vyžádá až ve chvíli, kdy příslušnou funkci použiješ, a jde ho kdykoli odebrat
+    v nastavení telefonu. Bez nich funguje měření času dál.
+  </p>
+
+  <h2>Sdílení dat mezi telefony</h2>
+  <p>
+    Přenos časů z jednoho telefonu do druhého probíhá přímo — QR kódem na obrazovce nebo souborem,
+    který si sám pošleš. <strong>Žádný server v tom není.</strong> Co se komu dostane do ruky,
+    rozhoduješ ty tím, komu QR kód ukážeš nebo komu soubor pošleš.
+  </p>
+
+  <h2>Verze v prohlížeči</h2>
+  <p>
+    Na iPhonu se Lapzy otevírá jako stránka a přidává na plochu. Platí pro ni totéž: nastavení
+    i naměřené časy se ukládají <strong>do úložiště prohlížeče v telefonu</strong> a nikam se
+    neodesílají. Po prvním otevření se aplikace uloží do telefonu, takže dál běží i bez připojení.
+  </p>
+  <p>
+    Stránka je uložená na běžném hostingu (GitHub Pages). Ten — jako každý web — při stažení
+    stránky vidí IP adresu a označení prohlížeče; slouží to k doručení souborů a Lapzy s tím nic
+    dalšího nedělá. <strong>Jakmile je aplikace jednou v telefonu, už se na server znovu
+    nechodí.</strong> Data smažeš tlačítkem <strong>Reset nastavení</strong>, nebo smazáním ikony
+    z plochy a dat stránky v nastavení prohlížeče.
+  </p>
+
+  <h2>Děti</h2>
+  <p>Aplikace není určena dětem mladším 13 let, ale ani pro ně nepředstavuje riziko — nesbírá žádné údaje.</p>
+
+  <h2>Tvoje práva</h2>
+  <p>
+    Protože žádné údaje neopouštějí telefon, není co u vývojáře žádat o výmaz. Všechna data smažeš
+    přímo v aplikaci: <strong>Nastavení → Reset nastavení</strong>, nebo odinstalováním aplikace.
+  </p>
+
+  <h2>Změny</h2>
+  <p>Pokud se zásady změní, zveřejníme novou verzi na této adrese a upravíme datum platnosti nahoře.</p>
+
+  <h2>Kontakt</h2>
+  <p>Správce: <strong>DOPLŇ JMÉNO</strong> · e-mail: <strong>DOPLŇ E-MAIL</strong></p>
+
+  <hr>
+
+  <div class="en" lang="en">
+    <h1 style="font-size:24px">Privacy Policy</h1>
+    <div class="sub">Lapzy · effective 15 September 2026</div>
+
+    <p class="lead" style="margin-top:20px">
+      Lapzy is an offline stopwatch. <strong>It collects, transmits and shares no personal data.</strong>
+      Everything created in the app stays in the phone's memory until you delete it or uninstall the app.
+    </p>
+
+    <h2>What the app stores</h2>
+    <p>Only what you enter or measure yourself: race settings, rider and stage names, measured start
+      and finish times, language, dark mode and the phone name used when sharing data. The phone name
+      comes from the device settings and is used only so the receiving phone can tell where imported
+      data came from.</p>
+    <p>Data is stored in the app's normal storage. The app <strong>has no internet access</strong> and
+      sends nothing anywhere — neither to the developer nor to third parties. There are no ads,
+      no analytics and no tracking.</p>
+
+    <h2>Permissions</h2>
+    <table>
+      <tr><th>Permission</th><th>Purpose</th></tr>
+      <tr><td>Camera</td><td>Reading a QR code with times from another phone. No picture is stored or sent.</td></tr>
+      <tr><td>Photos and media</td><td>Reading a QR code from an existing picture, and saving a generated QR code to the gallery.</td></tr>
+      <tr><td>Files</td><td>Saving an export to a folder you pick, and reading a file with times.</td></tr>
+    </table>
+
+    <h2>Sharing between phones</h2>
+    <p>Times move from one phone to another directly — as a QR code on screen or as a file you send
+      yourself. No server is involved.</p>
+
+    <h2>Browser version</h2>
+    <p>On iPhone, Lapzy opens as a web page added to the home screen. The same applies: settings and
+      measured times are stored <strong>in the browser's storage on the phone</strong> and are sent
+      nowhere. After the first visit the app is stored on the phone and keeps working offline.
+      The page is served from ordinary hosting (GitHub Pages), which — like any website — sees the
+      IP address and browser identification while delivering the files.</p>
+
+    <h2>Children</h2>
+    <p>The app is not directed at children under 13, and poses no risk to them either — it collects no data.</p>
+
+    <h2>Your rights</h2>
+    <p>Since no data leaves the phone, there is nothing for the developer to erase. You can delete
+      everything in the app: <strong>Settings → Reset settings</strong>, or by uninstalling the app.</p>
+
+    <h2>Contact</h2>
+    <p>Controller: <strong>YOUR NAME</strong> · e-mail: <strong>YOUR E-MAIL</strong></p>
+  </div>
+</main>
+</body>
+</html>
